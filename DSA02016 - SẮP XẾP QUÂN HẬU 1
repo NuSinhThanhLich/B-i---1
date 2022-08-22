@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+
+int n, ans, cot[1000], d1[1000], d2[1000], a[10000];
+
+void sinh (int i) {
+	for (int j = 1; j <= n; j++) {
+		if (cot[j] == 0 && d1[i - j + n] == 0 && d2[i + j - 1] == 0) {
+			a[i] = j;
+			cot[j] = d1[i - j + n] = d2[i + j - 1] = 1;
+			if (i == n) {
+				ans++;
+			} else {
+				sinh(i + 1);
+			}
+			cot[j] = d1[i - j + n] = d2[i + j - 1] = 0;
+ 		}
+	}
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		cin >> n;
+		ans = 0;
+		sinh(1);
+		cout << ans << endl;
+	}
+}
