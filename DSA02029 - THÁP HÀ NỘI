@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+
+void chuyen (int n, char a, char c) {
+	cout << a << " " << "->" << " " << c << endl;
+} 
+
+void thap (int n, char a, char b, char c) {
+	if (n == 1) {
+		chuyen (1,a,c);
+	} else {
+		thap (n - 1, a, c, b);
+		chuyen (n, a, c);
+		thap (n - 1, b, a, c);
+	}
+}
+
+int main () {
+	int n;
+	char a = 'A';
+	char b = 'B';
+	char c = 'C';
+	cin >> n;
+	thap (n,a,b,c);
+}
