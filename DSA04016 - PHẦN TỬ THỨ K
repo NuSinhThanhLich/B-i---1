@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod = 1e9 + 7;
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int m,n,k;
+		vector<int> v;
+		cin >> m >> n >> k;
+		int a[m];
+		int b[n];
+		for (int i = 0; i < m; i++) {
+			cin >> a[i];
+			v.push_back(a[i]);
+		}
+		for (int j = 0; j < n; j++) {
+			cin >> b[j];
+			v.push_back(b[j]);
+		}
+		sort(v.begin(), v.end());
+		cout << v[k - 1] << endl;
+	}
+}
