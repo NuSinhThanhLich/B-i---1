@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+const long long mod = 1e9 + 7;
+
+string month = "02";
+string day[] = {"02", "20", "22"};
+
+queue<string> q;
+vector<string> year;
+vector<string> ans(3);
+set<string> st;
+
+int check (string s) {
+	for (int i = 0; i < s.size(); i++) {
+		if (s[0] == '0') {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+void sinh () {
+	q.push("2");
+	q.push("0");
+	while (1) {
+		string top = q.front();
+		q.pop();
+		if (top.size() == 4) {
+			if (check(top) == 1) {
+				year.push_back(top);
+			}	
+		}
+		if (top.size() == 5) {
+			break;
+		}
+		q.push(top + "2");
+		q.push(top + "0");
+	}
+}
+
+void output() {
+	string b;
+	ans[1] = month;
+	for (auto x : day) {
+		ans[0] = x;
+		for (auto y : year) {
+			ans[2] = y;
+			b = b + ans[0] + "/" + ans[1] + "/" + ans[2];
+			st.insert(b);
+			b = "";
+		}
+	}
+}
+
+int main () {
+	sinh();
+	output();
+	for (auto m : st) {
+		cout << m << endl;
+	}
+}
