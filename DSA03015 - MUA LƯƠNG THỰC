@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+const long long mod = 1e9 + 7;
+
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int n,s,m;
+		cin >> n >> s >> m;
+		int dung = s * m;
+		int mua = s - (s / 7);
+		if (n * mua < dung) {
+			cout << "-1" << endl;
+		} else {
+			for (int i = 1; i <= mua; i++) {
+				if ((n * i) >= dung) {
+					cout << i << endl;
+					break;
+				}
+ 			}
+		}
+ 	}
+}
