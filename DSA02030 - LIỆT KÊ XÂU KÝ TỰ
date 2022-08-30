@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod = 1e9 + 7;
+
+char c;
+int n;
+vector<char> s,x;
+
+void init() {
+	for (char i = 'A'; i <= c; i++) {
+		s.push_back(i);
+	}
+}
+
+void bt (int i, int cnt) {
+	for (int j = i; j < s.size(); j++) {
+		x.push_back(s[j]);
+		if (cnt == n - 1) {
+			for (auto y : x) {
+				cout << y;
+			}
+			cout << endl;
+		} else {
+			bt(j, cnt + 1);
+		}
+		x.pop_back();
+	}
+}
+
+
+int main () {
+	cin >> c >> n;
+	init();
+	bt(0,0);
+}
