@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod = 1e9 + 7;
+long long p_module (long long a, long long b) {
+	if (b == 1) {
+		return a;
+	}
+	long long half = p_module (a, b / 2);
+	if (b % 2 == 0) {
+		return (half * half) % mod;
+	} else {
+		return (((half * half) % mod) * a) % mod;
+	}
+}
+
+int main() {
+	while(1) {
+		long long a,b;
+		cin >> a >> b;
+		if(a == 0 && b == 0) {
+			return 0;
+		}  else if (b == 0) { 
+			cout << "1" << endl;
+		} else {
+			cout << p_module(a,b) << endl;
+		}
+	}
+
+
+}
