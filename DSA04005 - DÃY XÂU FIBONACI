@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod = 1e9 + 7;
+
+long long n,k,fibo[95];
+
+void tinh () {
+	if (n == 1) {
+		cout << "A" << endl;
+	}
+	else if (n == 2) {
+		cout << "B" << endl;
+	} else {
+		if (k > fibo[n - 2]) {
+			k = k - fibo[n - 2];
+			n--;
+		} else {
+			n = n - 2;
+		}
+		tinh();
+	}
+	
+}
+
+void sinh () {
+	fibo[0] = 0;
+	fibo[1] = 1;
+	fibo[2] = 1;
+	for (int i = 3; i < 93; i++) {
+		fibo[i] = fibo[i - 2] + fibo[i - 1];
+	}
+	tinh();
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		cin >> n >> k;
+		sinh();
+	}
+}
