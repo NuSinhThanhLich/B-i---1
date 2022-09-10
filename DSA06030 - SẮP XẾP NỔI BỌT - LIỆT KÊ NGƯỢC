@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int n,b = 1;
+		cin >> n;
+		int a[10000];
+		for (int i = 0; i < n; i++) {
+			cin >> a[i];
+		}
+		string s;
+		vector<string> v;
+		for (int i = 0; i < n - 1; i++) {
+			int k = 0;
+			for (int j = 0; j < n - i - 1 ; j++) {
+				if (a[j] > a[j + 1]) {
+					swap(a[j], a[j + 1]);
+					k = 1;
+				}
+			}
+			if (k == 0) {
+				break;
+			}
+			s = s + "Buoc " + to_string(b++) + ": ";
+			for (int j = 0; j < n; j++) {
+				s = s + to_string(a[j]) + " ";
+			}
+			v.push_back(s);
+			s = "";
+		}
+		for (int i = v.size() - 1; i >= 0; i--) {
+			cout << v[i] << endl;
+		}
+
+	}
+}
