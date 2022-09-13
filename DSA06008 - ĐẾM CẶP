@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+
+int tinh(int b[], int m, int x, int cnt[]) {
+	int ans = 0;
+	if (x == 0) {
+		return 0;
+	}
+	if (x == 1) {
+		return cnt[0];
+	}
+	int it = upper_bound(b, b + m, x) - b;
+	ans = ans + (m - it);
+	ans = ans + cnt[0] + cnt[1];
+	if (x == 2) {
+		ans = ans - cnt[3] - cnt[4];
+	}
+	if (x == 3) {
+		ans = ans + cnt[2];
+	}
+	return ans;
+}
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--) {
+		int n,m;
+		cin >> n >> m;
+		int a[n + 5];
+		int b[m + 5];
+		int cnt[5] = {};
+		for (int i = 0; i < n; i++) {
+			cin >> a[i];
+		}
+		for (int i = 0; i < m; i++) {
+			cin >> b[i];
+			if (b[i] <= 4)
+			cnt[b[i]]++;
+		}
+		sort(b, b + m);
+		long long sum = 0;
+		for (int i = 0; i < n; i++) {
+			sum = sum + tinh(b,m,a[i],cnt);
+		}
+		cout << sum << endl;
+	}
+}
