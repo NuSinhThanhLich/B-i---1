@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+
+int main () {
+	int t;
+	cin >> t;
+	while(t--) {
+		int n,m,k;
+		cin >> n >> m >> k;
+		vector<long long> hop,giao;
+		long long a[n + 5], b[m + 5], c[k + 5];
+		for (int i = 0; i < n; i++) {
+			cin >> a[i];
+		}
+		for (int i = 0; i < m; i++) {
+			cin >> b[i];
+		}
+		for (int i = 0; i < k; i++) {
+			cin >> c[i];
+		}
+		int i = 0, j = 0, l = 0;
+		while (i < n && j < m && l < k) {
+			if (a[i] == b[j] && b[j] == c[l]) {
+				hop.push_back(a[i]);
+				giao.push_back(a[i]);
+				i++;
+				j++;
+				l++;
+			} else if (a[i] > b[j]) {
+				hop.push_back(b[j]);
+				j++;
+			} else if (b[j] > c[l]) {
+				hop.push_back(c[l]);
+				l++;
+			} else if (c[l] > a[i]) {
+				hop.push_back(a[i]);
+				i++;
+			}
+		}
+		while (i < n) {
+			hop.push_back(a[i++]);
+		}
+		while (j < m) {
+			hop.push_back(b[j++]);
+		}
+		while (l < k) {
+			hop.push_back(c[l++]);
+		}
+		if (giao.size() == 0) {
+			cout << "-1";
+		} else {
+			for (auto x : giao) {
+				cout << x << " ";
+			}
+		}
+		cout << endl;
+	}
+}
