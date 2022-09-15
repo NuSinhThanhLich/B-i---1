@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+stack<int> st;
+
+int main () {
+	int q;
+	cin >> q;
+	while (q--) {
+		string a;
+		cin >> a;
+		if (a == "PUSH") {
+			int b;
+			cin >> b;
+			st.push(b);
+		} else if (a == "POP" && st.size() > 0) {
+			st.pop();
+		} else if (a == "PRINT") {
+			if (st.empty() != 1) {
+				cout << st.top() << endl;
+			} else {
+				cout << "NONE" << endl;
+			}
+		}
+	}
+}
