@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		string s;
+		cin >> s;
+		stack<char> st;
+		int check = 1;
+		for (int i = 0; i < s.size(); i++) {
+			if (s[i] == '(' || s[i] == '[' || s[i] == '{') {
+				st.push(s[i]);
+			} else if (s[i] == ')') {
+				if (st.size() > 0 && st.top() == '(') {
+					st.pop();
+				} else {
+					check = 0;
+					break;
+				}
+			} else if (s[i] == ']') {
+				if (st.size() > 0 && st.top() == '[') {
+					st.pop();
+				} else {
+					check = 0;
+					break;
+				}
+			} else if (s[i] == '}') {
+				if (st.size() > 0 && st.top() == '{') {
+					st.pop();
+				} else {
+					check = 0;
+					break;
+				}
+			}
+		}
+		if (st.size() > 0) {
+			check = 0;
+		}
+		if (check == 1) {
+			cout << "YES" << endl;
+		} else {
+			cout << "NO" << endl;
+		}
+	}
+}
