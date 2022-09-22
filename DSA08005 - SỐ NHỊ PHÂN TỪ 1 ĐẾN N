@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+int n;
+vector<string> v;
+queue<string> q;
+
+void sinh() {
+	q.push("1");
+	while (1) {
+		string top = q.front();
+		q.pop();
+		v.push_back(top);
+		if (v.size() == n) {
+			break;
+		}
+		q.push(top + "0");
+		q.push(top + "1"); 
+	}
+} 
+
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		cin >> n;
+		sinh();
+		for (auto x : v) {
+			cout << x << " ";
+		}
+		cout << endl;
+		v.clear();
+		while (q.size() > 0) {
+			q.pop();
+		}
+	}
+}
