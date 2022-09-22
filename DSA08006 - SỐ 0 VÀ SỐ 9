@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+int n;
+vector<int> v;
+queue<int> q;
+
+int check (int a) {
+	if (a % n == 0) {
+		return 1;
+	}
+	return 0;
+}
+
+void sinh() {
+	q.push(9);
+	while (1) {
+		int top = q.front();
+		q.pop();
+		v.push_back(top);
+		if (check(top) == 1) {
+			break;
+		}
+		q.push(top * 10);
+		q.push(top * 10 + 9); 
+	}
+} 
+
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		cin >> n;
+		sinh();
+		cout << v[v.size() - 1];
+		cout << endl;
+		v.clear();
+		while (q.size() > 0) {
+			q.pop();
+		}
+	}
+}
