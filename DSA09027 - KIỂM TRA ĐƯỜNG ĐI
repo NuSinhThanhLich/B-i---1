@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+
+vector<int> adj[10000];
+int visited[10000];
+queue<int> q;
+
+void bfs (int i) {
+	q.push(i);
+	visited[i] = 1;
+	while (q.size() > 0) {
+		int x = q.front();
+		q.pop();
+		for (auto s : adj[x]) {
+			if (visited[s] == 0) {
+				q.push(s);
+				visited[s] = 1;
+			}
+		} 
+	}
+}
+
+void check (int a, int b) {
+	bfs(a);
+	if (visited[b] == 0) {
+		cout << "NO" << endl;
+	} else {
+		cout << "YES" << endl;
+	}
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int n,m;
+		cin >> n >> m;
+		for (int i = 1; i <= n; i++) {
+			adj[i].clear();
+		}
+		for (int i = 1; i <= m; i++) {
+			int x, y;
+			cin >> x >> y;
+			adj[x].push_back(y);
+			adj[y].push_back(x);
+		}
+		int q;
+		cin >> q;
+		while (q--) {
+			memset(visited, 0, sizeof(visited));
+			int a,b;
+			cin >> a >> b;
+			check(a, b);
+		}
+	}
+}
