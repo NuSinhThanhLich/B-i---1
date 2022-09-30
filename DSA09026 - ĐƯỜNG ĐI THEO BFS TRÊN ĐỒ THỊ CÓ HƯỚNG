@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> adj[10000];
+int visited[10000];
+queue<int> q;
+int parent[10000];
+int n,m;
+
+void bfs (int i) {
+	q.push(i);
+	visited[i] = 1;
+	while (q.size() > 0) {
+		int x = q.front();
+		q.pop();
+		for (auto y : adj[x]) {
+			if (visited[y] == 0) {
+				q.push(y);
+				parent[y] = x;
+				visited[y] = 1;
+			}
+		}
+	}
+}
+
+void path (int s, int t) {
+	memset(visited, 0, sizeof(visited));
+	memset(parent, 0, sizeof(parent));
+	vector<int> pa;
+	bfs(s);
+	if (visited[t] == 0) {
+		cout << "-1";
+	} else {
+		while (t != s) {
+			pa.push_back(t);
+			t = parent[t];
+		}
+		pa.push_back(s);
+		reverse(pa.begin(), pa.end());
+		for (auto x : pa) {
+			cout << x << " ";
+		}
+	}
+	cout << endl;
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int p,q;
+		cin >> n >> m >> p >> q;
+		for (int i = 1; i <= m; i++) {
+			int x,y;
+			cin >> x >> y;
+			adj[x].push_back(y);
+		}
+		path(p, q);
+		for (int i = 1; i <= n; i++) {
+			adj[i].clear();
+		}
+	}
+} 
