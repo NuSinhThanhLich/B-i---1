@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+const int mod = 1e9 + 7;
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int k;
+		cin >> k;
+		string s;
+		cin >> s;
+		priority_queue<int> qe;
+		map<char, int> mp;
+		for (int i = 0; i < s.size(); i++) {
+			mp[s[i]]++;
+		}
+		
+		for (auto x : mp) {
+			qe.push(x.second);
+		}
+		
+		while (k > 0) {
+			int top = qe.top();
+			qe.pop();
+			k--;
+			top--;
+			qe.push(top);
+		}
+		
+		long long ans = 0;
+		while (qe.size() > 0) {
+			ans = ans + qe.top() * qe.top();
+			qe.pop();	
+		}
+		cout << ans << endl;
+	}
+}
