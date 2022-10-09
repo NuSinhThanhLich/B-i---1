@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+const int mod = 1e9 + 7;
+int visited[1000] = {};
+int parent[1000];
+vector <int> adj[1000];
+
+void dfs (int a) {
+	visited[a] = 1;
+	for (auto x : adj[a]) {
+		if (visited[x] == 0) {
+			parent[x] = a;
+			dfs(x);
+		}
+	}
+}
+
+void path (int p, int q) {
+	dfs(p);
+	vector <int> ans;
+	if (visited[q] == 0) {
+		cout << "-1" << endl;
+	}
+	while (q != p) {
+		ans.push_back(q);
+		q = parent[q];
+	}
+	ans.push_back(p);
+	reverse(ans.begin(), ans.end());
+	for (auto x : ans) {
+		cout << x << " ";
+	}
+	cout << endl;
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int a,b,n,m;
+		cin >> n >> m >> a >> b;
+		memset(visited, 0, sizeof(visited));
+		memset(parent, 0, sizeof(parent));
+		for (int i = 1; i <= n; i++) {
+			adj[i].clear();
+		}
+		for (int i = 1; i <= m; i++) {
+			int x,y;
+			cin >> x >> y;
+			adj[x].push_back(y);
+			adj[y].push_back(x);
+		}
+		path(a,b);
+	}
+}
