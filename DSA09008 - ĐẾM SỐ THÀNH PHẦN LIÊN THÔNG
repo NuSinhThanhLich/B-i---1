@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define faster() ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+const int mod = 1e9 + 7;
+int visited[10000];
+int parent[10000];
+vector <int> adj[10000];
+queue<int> q;
+int n,m;
+
+void bfs (int a) {
+	q.push(a);
+	visited[a] = 1;
+	while (q.size() > 0) {
+		int x = q.front();
+		q.pop();
+		for (auto v : adj[x]) {
+			if (visited[v] == 0) {
+				visited[v] = 1;
+				parent[v] = x;
+				q.push(v);
+			}
+		}
+	}
+}
+
+void connect() {
+	int ans = 0;
+	for (int i = 1; i <= n; i++) {
+		if (visited[i] == 0) {
+			ans++;
+		}
+		bfs(i);
+	}
+	cout << ans << endl;
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		cin >> n >> m;
+		memset(visited, 0, sizeof(visited));
+		memset(parent, 0, sizeof(parent));
+		for (int i = 1; i <= n; i++) {
+			adj[i].clear();
+		}
+		for (int i = 1; i <= m; i++) {
+			int x,y;
+			cin >> x >> y;
+			adj[x].push_back(y);
+			adj[y].push_back(x);
+		}
+		connect();
+	}
+}
