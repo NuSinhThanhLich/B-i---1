@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string s;
+int n;
+long long a[100000];
+int check;
+
+void init(int k) {
+	for (int i = 1; i <= k; i++) {
+		a[i] = i;
+	}
+}
+
+void sinh(int k) {
+	int i = k;
+	while (i >= 1 && a[i] == n - k + i) {
+		i--;
+	}
+	if (i == 0) {
+		check = 1;
+	} else {
+		a[i]++;
+		for (int j = i + 1; j <= k; j++) {
+			a[j] = a[j - 1] + 1;
+		}
+	}
+}
+
+void solve () {
+	set<string> st;
+	for (int i = 1; i <= n; i++) {
+		init(i);
+		check = 0;
+		while (check == 0) {
+			string p;
+			for (int j = 1; j <= i; j++) {
+				p = p + s[a[j] - 1];
+			}
+			st.insert(p);
+			sinh(i);
+		}
+	}
+	
+	for (auto x : st) {
+		cout << x << " ";
+	}
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		cin >> n;
+		cin >> s;
+		solve();
+		cout << endl;
+	}
+}
