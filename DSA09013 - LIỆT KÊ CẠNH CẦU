@@ -1,0 +1,78 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+int visited[10000];
+vector<int> adj[10000];
+vector<pair<int,int>> dscanh;
+
+void init() {
+	cin >> n >> m;
+	memset(visited, 0, sizeof(visited));
+	for (int i = 1; i <= n; i++) {
+		adj[i].clear();
+	}
+	dscanh.clear();
+	for (int i = 1; i <= m; i++) {
+		int x,y;
+		cin >> x >> y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+		dscanh.push_back({x,y});
+	}
+}
+
+void dfs2 (int u, int s, int t) {
+	visited[u] = 1;
+	for (int v : adj[u]) {
+		if ((u == s && v == t ) || (u == t && v == s)){
+			continue;
+		}
+		if (visited[v] == 0) {
+			dfs2(v, s ,t);
+		}
+	}
+}
+
+void dfs (int a) {
+	visited[a] = 1;
+	for (auto x : adj[a]) {
+		if (visited[x] == 0) {
+			dfs(x);
+		}
+	}
+}
+
+void canhcau () {
+	int lt = 0;
+	for (int i = 1; i <= n; i++) {
+		if (visited[i] == 0) {
+			lt++;
+			dfs(i);
+		}
+	}
+	for (auto it : dscanh) {
+		int x = it.first;
+		int y = it.second;
+		memset(visited, 0, sizeof(visited));
+		int dem = 0;
+		for (int i = 1; i <= n; i++) {
+			if (visited[i] == 0) {
+				dem++;
+				dfs2(i, x, y);
+			}
+		}
+		if (dem > lt) {
+			cout << x << " " << y << " ";
+		}
+	}
+	cout << endl;
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		init();
+		canhcau();
+	}
+}
