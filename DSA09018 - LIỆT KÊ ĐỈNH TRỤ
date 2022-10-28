@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+
+int n,m;
+int visited[10000];
+vector<int> adj[1000];
+vector<int> ans;
+
+void init() {
+	for (int i = 1; i <= n; i++) {
+		adj[i].clear();
+	}
+	for (int i = 1; i <= m; i++) {
+		int x,y;
+		cin >> x >> y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+	memset(visited, 0, sizeof(visited));
+	ans.clear();
+}
+
+void dfs(int i) {
+	visited[i] = 1;
+	for (auto x : adj[i]) {
+		if (visited[x] == 0) {
+			dfs(x);
+		}
+	}
+}
+
+void dinhtru() {
+	int tplt = 0;
+	memset(visited, 0, sizeof(visited));
+	for (int i = 1; i <= n; i++) {
+		if (visited[i] == 0) {
+			tplt++;
+			dfs(i);
+		}
+	}
+	
+	for (int i = 1; i <= n; i++) {
+		int dem = 0;
+		memset(visited, 0, sizeof(visited));
+		visited[i] = 1;
+		for (int j = 1; j <= n; j++) {
+			if (visited[j] == 0) {
+				dem++;
+				dfs(j);
+			}
+		}
+		if (dem > tplt) {
+			ans.push_back(i);
+		}
+	}
+}
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--) {
+		cin >> n >> m;
+		init();
+		dinhtru();
+		for (auto x : ans) {
+			cout << x << " ";
+		}
+		cout << endl;
+	}
+}
