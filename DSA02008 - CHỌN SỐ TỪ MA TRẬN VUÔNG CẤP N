@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+int n,s;
+int visited[10000];
+int a[100][100];
+int b[10000];
+vector<string> v;
+
+void bt(int i) {
+	for (int j = 1; j <= n; j++) {
+		if (visited[j] == 0) {
+			visited[j] = 1;
+			b[i] = j;
+			if (i == n) {
+				int res = 0;
+				for (int l = 1; l <= n; l++) {
+					res = res + a[l][b[l]];
+				}
+				if (res == s) {
+					string s;
+					for (int m = 1; m <= n; m++) {
+						s = s + to_string(b[m]) + " ";		
+					}
+					v.push_back(s);
+				}
+			} else {
+				bt(i + 1);
+			}
+			visited[j] = 0;
+		}
+	}
+}
+
+int main () {
+	cin >> n >> s;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			cin >> a[i][j];
+		}
+	}
+	bt(1);
+	cout << v.size() << endl;
+	for (auto x : v) {
+		cout << x << endl;
+	}
+}
