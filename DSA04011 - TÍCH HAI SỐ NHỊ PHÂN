@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		string s1, s2;
+		cin >> s1 >> s2;
+		long long a = 0, b = 0;
+		for (long long i = s1.size() - 1; i >= 0; i--) {
+			a = a + (s1[i] - '0') * pow(2,s1.size() - i - 1);
+		}
+		for (long long i = s2.size() - 1; i >= 0; i--) {
+			b = b + (s2[i] - '0') * pow(2, s2.size() - i - 1);
+		}
+		cout << a * b << endl;
+	}
+}
