@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod = 1e9 + 7;
+
+int n,m;
+int visited[10000];
+vector<int> adj[10000];
+int parent[10000];
+
+void init() {
+	cin >> n >> m;
+	memset(visited, 0, sizeof(visited));
+	memset(parent, 0, sizeof(parent));
+	for (int i = 1; i <= n; i++) {
+		adj[i].clear();
+	}
+	for (int i = 1; i <= m; i++) {
+		int x,y;
+		cin >> x >> y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+}
+
+bool dfs(int i) {
+	visited[i] = 1;
+	for (auto x : adj[i]) {
+		if (visited[x] == 0) {
+			parent[x] = i;
+			if (dfs(x) == true) {
+				return true;
+			}
+		} else if (x != parent[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		init();
+		int check = 0;
+		for (int i = 1; i <= n; i++) {
+			if (visited[i] == 0) {
+				if (dfs(i) == true) {
+					check = 1;
+					break;
+				}
+			}
+		}
+		if (check == 0) {
+			cout << "NO" << endl;
+		} else {
+			cout << "YES" << endl;
+		}
+	}
+}
