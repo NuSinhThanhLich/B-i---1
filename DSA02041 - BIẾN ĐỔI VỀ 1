@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+
+void solve(int n) {
+	queue<pair<int, int>> q;
+	q.push({n, 0});
+	while (!q.empty()) {
+		pair<int, int> top = q.front();
+		q.pop();
+		if (top.first == 1) {
+			cout << top.second;
+			return;
+		}
+		if (top.first % 2 == 0) {
+			q.push({top.first / 2, top.second + 1});
+		} 
+		if (top.first % 3 == 0) {
+			q.push({top.first / 3, top.second + 1});
+		}
+		if (top.first > 1) {
+			q.push({top.first - 1, top.second + 1});
+		}
+	}
+}
+
+int main () {
+	int t;
+	cin >> t;
+	while (t--) {
+		int n;
+		cin >> n;
+		solve(n);
+		cout << endl;
+	}
+}
